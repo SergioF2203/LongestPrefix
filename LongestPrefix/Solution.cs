@@ -10,39 +10,52 @@ namespace LongestPrefix
     {
         public string LongestCommonPrefix(string[] strs)
         {
-
-            string result = "";
-
-            int min = strs[0].Length;
-
-            foreach (var item in strs)
-                min = item.Length < min ? item.Length : min;
-
-            TrimItemsArray(strs, min);
-
-            bool switcher = true;
-            do
+            if (strs.Length == 0)
+                return "";
+            else
             {
-                int counter = 0;
-                for (int i = 0; i < strs.Length - 1; i++)
+                var result = "";
+                var min = strs[0].Length;
+
+                for (int i = 0; i < strs.Length; i++)
+                    if (strs[i].Length == 0)
+                        return "";
+
+                if (strs.Length == 1)
+                    return strs[0];
+
+                for (int i = 0; i < strs.Length; i++)
+                    if (strs[i].Substring(0, 1) != strs[i + 1].Substring(0, 1))
+                        return "";
+
+                foreach (var item in strs)
+                    min = item.Length < min ? item.Length : min;
+
+                TrimItemsArray(strs, min);
+
+                bool switcher = true;
+                do
                 {
-                    if (string.Compare(strs[i], strs[i + 1]) == 0)
+                    int counter = 0;
+                    for (int i = 0; i < strs.Length - 1; i++)
                     {
-                        result = strs[i];
-                        counter++;
-                        if (counter == strs.Length - 1)
-                            switcher = false;
+                        if (string.Compare(strs[i], strs[i + 1]) == 0)
+                        {
+                            result = strs[i];
+                            counter++;
+                            if (counter == strs.Length - 1)
+                                switcher = false;
+                        }
+                        else
+                        {
+                            result = "";
+                            TrimItemsArray(strs, strs[i].Length - 1);
+                        }
                     }
-                    else
-                    {
-                        result = "";
-                        TrimItemsArray(strs, strs[i].Length - 1);
+                } while (switcher);
 
-                    }
-                }
-            } while (switcher);
-
-            return result;
+                return result;
+            }
         }
 
         private static string[] TrimItemsArray(string[] _arrayStr, int _trimIndex)

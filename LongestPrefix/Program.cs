@@ -10,7 +10,7 @@ namespace LongestPrefix
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(new Solution().LongestCommonPrefix(new[] { "new","newest","newbee"}));
+            Console.WriteLine(new Solution().LongestCommonPrefix(new string[] {"newb","dre","fract","lll","sndbjk" }));
         }
     }
 }
